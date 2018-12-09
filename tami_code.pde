@@ -53,7 +53,7 @@ void draw() {
 
   noStroke();
   shapeMode(CENTER);
-  drawLetter("o", 255, width/2, height/2, 20, true);
+  drawLetter("o", 500, 255, width/2, height/2, 20, true);
   
 pushMatrix();
 
@@ -114,9 +114,10 @@ pushMatrix();
 
 }
 
-private void drawLetter(String letter, int alpha, int letterY, int letterX, int strokeWeightThiccness, boolean isListen)
+private void drawLetter(String letter, int fontSize, int alpha, int letterY, int letterX, int strokeWeightThiccness, boolean isListen)
 {
   pushMatrix();
+  font.setSize(fontSize);
 translate(letterY, letterX); 
 
   strokeWeight(strokeWeightThiccness);
