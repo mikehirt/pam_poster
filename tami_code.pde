@@ -60,13 +60,12 @@ void draw() {
     listenFontSize = listenFontSize/2;
   }
   int listenStrokeWeight = 19;
-  int listenAlpha = 255-floor((facePos.z*2)*255);
+  int listenAlpha = 255-floor((facePos.z*1.8)*255);
   
    if (listenAlpha > 255){
      listenAlpha = 255;
    }
   
-   println("listen: " +listenAlpha);
     drawLetter("L", listenFontSize, listenAlpha, height/2, width/10, listenStrokeWeight, true);
     drawLetter("I", listenFontSize, listenAlpha, height/2, width/10*2, listenStrokeWeight, true);
     drawLetter("S", listenFontSize, listenAlpha, height/2, width/10*3, listenStrokeWeight, true);
@@ -82,71 +81,16 @@ void draw() {
     silentFontSize = silentFontSize/2;
   }
     int silentStrokeWeight = 19;
-    int silentAlpha = floor((facePos.z*2)*255);
-
+    int silentAlpha = 0;
+    if(facePos.z > 0.4)
+  {
+    silentAlpha = floor(((facePos.z-0.4)*2.5)*255);
+  }
+     
    if (silentAlpha > 255){
      silentAlpha = 255;
    }
-   println("silent: "+ silentAlpha);
-     drawLetter("meng", silentFontSize, silentAlpha, height/3, width/5, silentStrokeWeight, false);
-  
-//pushMatrix();
-
- 
-  
-//  // margin border
-//  translate(width/4, width/2); 
-
-//  strokeWeight(19);
-
-//  if (listenString.length() > 0) {
-//    // get the points on font outline
-//    RGroup grp;
-//    grp = font.toGroup(listenString);
-//    grp = grp.toPolygonGroup();
-//    RPoint[] pnts = grp.getPoints();
-
-//    // ------ svg modules ------
-//    // dotShape
-//    int alpha = floor((facePos.z*2)*255);
-    
-//   if (alpha > 255){
-//     alpha = 255;
-//   }
-//  imageDisplay(alpha,30, pnts,listenDotColor, dotShape);
-//  imageDisplay(floor((facePos.z*2)*255),18, pnts,listenCrossColor, crossShape);
-   
-//  }
-//  popMatrix();
-  
-//  //second string
-//  pushMatrix();
-//  // margin border
-//  translate(width/2,height/2);
-//   rotate(-HALF_PI);
-  
-//    strokeWeight(5);
-//  if (silentString.length() > 0) {
-//    // get the points on font outline
-//    RGroup grp;
-//    grp = font.toGroup(silentString);
-//    grp = grp.toPolygonGroup();
-//    RPoint[] pnts = grp.getPoints();
-
-//    // ------ svg modules ------
-//    // dotShape
-//  int alpha = 255-floor((facePos.z*2)*255);
-
-//   if (alpha > 255){
-//     alpha = 255;
-//   }
-   
-//  imageDisplay(alpha,30, pnts,silentDotColor, dotShape);
-//    // crossShape
-//  imageDisplay((255-floor((facePos.z*2)*255)),19, pnts,silentCrossColor, crossShape);
-//  }
-//  popMatrix();
-
+     drawLetter("SILENT", silentFontSize, silentAlpha, height/3, width/5, silentStrokeWeight, false);
 }
 
 private void drawLetter(String letter, int fontSize, int alpha, int letterY, int letterX, int strokeWeightThiccness, boolean isListen)
