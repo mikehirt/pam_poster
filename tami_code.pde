@@ -42,9 +42,9 @@ void setup() {
 };
 
 void draw() {
-  
+ 
   background(240);
-  facePos = faceLocation(); // the facelocation returns the position of the face in the camera view as a pvector
+  facePos = faceLocation(); // the facelocation returns the position of the face in the camera view as a pvector 
   targetX = facePos.x-.5; 
   targetY = facePos.y-.5;
   targetX *= width;
@@ -53,7 +53,26 @@ void draw() {
 
   noStroke();
   shapeMode(CENTER);
-  drawLetter("o", 500, 255, width/2, height/2, 20, true);
+  int fontSize = 300;
+  if(facePos.z<=0){
+    fontSize = fontSize/2;
+  }
+  // LISTEN LETTERs
+  int listenStrokeWeight = 19;
+  int listenAlpha = floor((facePos.z*2)*255);
+  
+   if (listenAlpha > 255){
+     listenAlpha = 255;
+   }
+    drawLetter("o", fontSize, listenAlpha, height/2, width/4, listenStrokeWeight, true);
+  // SILENT LETTERs
+    int silentStrokeWeight = 19;
+    int silentAlpha = 255-floor((facePos.z*2)*255);
+
+   if (silentAlpha > 255){
+     silentAlpha = 255;
+   }
+     drawLetter("meng", fontSize, silentAlpha, height/3, width/5, silentStrokeWeight, false);
   
 pushMatrix();
 
@@ -73,7 +92,7 @@ pushMatrix();
 
     // ------ svg modules ------
     // dotShape
-   int alpha = floor((facePos.z*2)*255);
+    int alpha = floor((facePos.z*2)*255);
     
    if (alpha > 255){
      alpha = 255;
@@ -118,7 +137,7 @@ private void drawLetter(String letter, int fontSize, int alpha, int letterY, int
 {
   pushMatrix();
   font.setSize(fontSize);
-translate(letterY, letterX); 
+translate(letterX, letterY); 
 
   strokeWeight(strokeWeightThiccness);
 
