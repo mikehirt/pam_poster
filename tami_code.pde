@@ -99,7 +99,7 @@ pushMatrix();
      alpha = 255;
    }
    
-  imageDisplay(alpha,140, pnts,#FA7272, dotShape);
+  imageDisplay(alpha,30, pnts,#FA7272, dotShape);
     // crossShape
   imageDisplay((255-floor((facePos.z*2)*255)),19, pnts,#ED1111, crossShape);
   }
