@@ -53,83 +53,99 @@ void draw() {
 
   noStroke();
   shapeMode(CENTER);
-  int fontSize = 300;
-  if(facePos.z<=0){
-    fontSize = fontSize/2;
-  }
+  
   // LISTEN LETTERs
+  int listenFontSize = 150;
+  if(facePos.z<=0){
+    listenFontSize = listenFontSize/2;
+  }
   int listenStrokeWeight = 19;
-  int listenAlpha = floor((facePos.z*2)*255);
+  int listenAlpha = 255-floor((facePos.z*2)*255);
   
    if (listenAlpha > 255){
      listenAlpha = 255;
    }
-    drawLetter("o", fontSize, listenAlpha, height/2, width/4, listenStrokeWeight, true);
+  
+   println("listen: " +listenAlpha);
+    drawLetter("L", listenFontSize, listenAlpha, height/2, width/10, listenStrokeWeight, true);
+    drawLetter("I", listenFontSize, listenAlpha, height/2, width/10*2, listenStrokeWeight, true);
+    drawLetter("S", listenFontSize, listenAlpha, height/2, width/10*3, listenStrokeWeight, true);
+    drawLetter("T", listenFontSize, listenAlpha, height/2, width/10*4, listenStrokeWeight, true);
+    drawLetter("E", listenFontSize, listenAlpha, height/2, width/10*5, listenStrokeWeight, true);
+    drawLetter("N", listenFontSize, listenAlpha, height/2, width/10*6, listenStrokeWeight, true);
+// make height dependent on the Z value, maybe
+
+
   // SILENT LETTERs
+    int silentFontSize = 300;
+  if(facePos.z<=0){
+    silentFontSize = silentFontSize/2;
+  }
     int silentStrokeWeight = 19;
-    int silentAlpha = 255-floor((facePos.z*2)*255);
+    int silentAlpha = floor((facePos.z*2)*255);
 
    if (silentAlpha > 255){
      silentAlpha = 255;
    }
-     drawLetter("meng", fontSize, silentAlpha, height/3, width/5, silentStrokeWeight, false);
+   println("silent: "+ silentAlpha);
+     drawLetter("meng", silentFontSize, silentAlpha, height/3, width/5, silentStrokeWeight, false);
   
-pushMatrix();
+//pushMatrix();
 
  
   
-  // margin border
-  translate(width/4, width/2); 
+//  // margin border
+//  translate(width/4, width/2); 
 
-  strokeWeight(19);
+//  strokeWeight(19);
 
-  if (listenString.length() > 0) {
-    // get the points on font outline
-    RGroup grp;
-    grp = font.toGroup(listenString);
-    grp = grp.toPolygonGroup();
-    RPoint[] pnts = grp.getPoints();
+//  if (listenString.length() > 0) {
+//    // get the points on font outline
+//    RGroup grp;
+//    grp = font.toGroup(listenString);
+//    grp = grp.toPolygonGroup();
+//    RPoint[] pnts = grp.getPoints();
 
-    // ------ svg modules ------
-    // dotShape
-    int alpha = floor((facePos.z*2)*255);
+//    // ------ svg modules ------
+//    // dotShape
+//    int alpha = floor((facePos.z*2)*255);
     
-   if (alpha > 255){
-     alpha = 255;
-   }
-  imageDisplay(alpha,30, pnts,listenDotColor, dotShape);
-  imageDisplay(floor((facePos.z*2)*255),18, pnts,listenCrossColor, crossShape);
+//   if (alpha > 255){
+//     alpha = 255;
+//   }
+//  imageDisplay(alpha,30, pnts,listenDotColor, dotShape);
+//  imageDisplay(floor((facePos.z*2)*255),18, pnts,listenCrossColor, crossShape);
    
-  }
-  popMatrix();
+//  }
+//  popMatrix();
   
-  //second string
-  pushMatrix();
-  // margin border
-  translate(width/2,height/2);
-   rotate(-HALF_PI);
+//  //second string
+//  pushMatrix();
+//  // margin border
+//  translate(width/2,height/2);
+//   rotate(-HALF_PI);
   
-    strokeWeight(5);
-  if (silentString.length() > 0) {
-    // get the points on font outline
-    RGroup grp;
-    grp = font.toGroup(silentString);
-    grp = grp.toPolygonGroup();
-    RPoint[] pnts = grp.getPoints();
+//    strokeWeight(5);
+//  if (silentString.length() > 0) {
+//    // get the points on font outline
+//    RGroup grp;
+//    grp = font.toGroup(silentString);
+//    grp = grp.toPolygonGroup();
+//    RPoint[] pnts = grp.getPoints();
 
-    // ------ svg modules ------
-    // dotShape
-  int alpha = 255-floor((facePos.z*2)*255);
+//    // ------ svg modules ------
+//    // dotShape
+//  int alpha = 255-floor((facePos.z*2)*255);
 
-   if (alpha > 255){
-     alpha = 255;
-   }
+//   if (alpha > 255){
+//     alpha = 255;
+//   }
    
-  imageDisplay(alpha,30, pnts,silentDotColor, dotShape);
-    // crossShape
-  imageDisplay((255-floor((facePos.z*2)*255)),19, pnts,silentCrossColor, crossShape);
-  }
-  popMatrix();
+//  imageDisplay(alpha,30, pnts,silentDotColor, dotShape);
+//    // crossShape
+//  imageDisplay((255-floor((facePos.z*2)*255)),19, pnts,silentCrossColor, crossShape);
+//  }
+//  popMatrix();
 
 }
 
@@ -152,11 +168,11 @@ translate(letterX, letterY);
     // dotShape
   if(isListen){  
   imageDisplay(alpha,30, pnts,listenDotColor, dotShape);
-  imageDisplay(floor((facePos.z*2)*255),18, pnts,listenCrossColor, crossShape);
+  imageDisplay(alpha,18, pnts,listenCrossColor, crossShape);
   }
   else{
   imageDisplay(alpha,30, pnts,silentDotColor, dotShape);
-  imageDisplay((255-floor((facePos.z*2)*255)),19, pnts,silentCrossColor, crossShape);
+  imageDisplay(alpha,19, pnts,silentCrossColor, crossShape);
   }
   }
   popMatrix();
