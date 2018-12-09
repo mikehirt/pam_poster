@@ -10,6 +10,8 @@ String textTyped = "L I S T E N";
 
 int shapeSet = 0;
 PShape module1, module2;
+float targetX = 0; 
+float targetY = 0;
 
 void setup() {
   fullScreen();
@@ -38,8 +40,8 @@ void draw() {
   
   background(240);
   PVector facePos = faceLocation(); // the facelocation returns the position of the face in the camera view as a pvector
-  float targetX = facePos.x-.5; 
-  float targetY = facePos.y-.5;
+  targetX = facePos.x-.5; 
+  targetY = facePos.y-.5;
   targetX *= width;
   targetY *= height;
   //float targetZ = facePos.z*5;
@@ -80,40 +82,11 @@ pushMatrix();
      alpha = 255;
    }
  
-  println(alpha);
-    fill(#009D8F, alpha);
-    float diameter = 30;
-    for (int i=0; i < pnts.length-1; i++ ) {
-      // on every third point
-      if (i%3 == 0) {
-        // rotate the module facing to the next one (i+1)
-        pushMatrix();
-        float angle = atan2(pnts[i].y-pnts[i+1].y, pnts[i].x-pnts[i+1].x);
-        translate(pnts[i].x, pnts[i].y);
-        rotate(angle);
-        rotate(radians(-targetX));
-        shape(module1, 0,0, diameter+(targetY/2.5),diameter+(targetY/2.5));
-        popMatrix();
-      }
-    }
 
-    // module2
-    alpha = floor((facePos.z*2)*255);
-    fill(#CBFFD4, alpha);
-    diameter = 18;
-    for (int i=0; i < pnts.length-1; i++ ) {
-      // on every third point
-      if (i%3 == 0) {
-        // rotate the module facing to the next one (i+1)
-        pushMatrix();
-        float angle = atan2(pnts[i].y-pnts[i+1].y, pnts[i].x-pnts[i+1].x);
-        translate(pnts[i].x, pnts[i].y);
-        rotate(angle);
-        rotate(radians(targetX));
-        shape(module2, 0,0, diameter+(targetY/2.5),diameter+(targetY/2.5));
-        popMatrix();
-      }
-    }
+ 
+  imageDisplay(alpha,30, pnts,#009D8F);
+  imageDisplay(floor((facePos.z*2)*255),18, pnts,#CBFFD4);
+   
   }
   popMatrix();
   
@@ -148,46 +121,36 @@ pushMatrix();
    if (alpha > 255){
      alpha = 255;
    }
- 
-  println(alpha);
-    fill(#FA7272, alpha);
-    float diameter = 140;
-    for (int i=0; i < pnts.length-1; i++ ) {
-      // on every third point
-      if (i%3 == 0) {
-        // rotate the module facing to the next one (i+1)
-        pushMatrix();
-        float angle = atan2(pnts[i].y-pnts[i+1].y, pnts[i].x-pnts[i+1].x);
-        translate(pnts[i].x, pnts[i].y);
-        rotate(angle);
-        rotate(radians(-targetX));
-        shape(module1, 0,0, diameter+(targetY/2.5),diameter+(targetY/2.5));
-        popMatrix();
-      }
-    }
-
+   
+  imageDisplay(alpha,140, pnts,#FA7272 );
+      
     // module2
-  alpha = 255-floor((facePos.z*2)*255);
-    fill(#ED1111, alpha);
-    diameter = 19;
-    for (int i=0; i < pnts.length-1; i++ ) {
+    imageDisplay((255-floor((facePos.z*2)*255)),19, pnts,#ED1111);
+  }
+  popMatrix();
+
+}
+ private void imageDisplay(int alpha,
+ float diameter,
+ RPoint points[],
+ color colorHexCode
+ )
+ {    
+    fill(colorHexCode, alpha);
+    for (int i=0; i < points.length-1; i++ ) {
       // on every third point
       if (i%3 == 0) {
         // rotate the module facing to the next one (i+1)
         pushMatrix();
-        float angle = atan2(pnts[i].y-pnts[i+1].y, pnts[i].x-pnts[i+1].x);
-        translate(pnts[i].x, pnts[i].y);
+        float angle = atan2(points[i].y-points[i+1].y, points[i].x-points[i+1].x);
+        translate(points[i].x, points[i].y);
         rotate(angle);
         rotate(radians(targetX));
         shape(module2, 0,0, diameter+(targetY/2.5),diameter+(targetY/2.5));
         popMatrix();
       }
     }
-  }
-  popMatrix();
-
-}
-
+ }
   // uncomment for extra information on face orientation
   //PVector orientation = orient(); // the orientation returns the orientation of the face  as a pvector
   //orientation.mult(100);
